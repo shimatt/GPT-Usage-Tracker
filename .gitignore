@@ -24,3 +24,6 @@ Desktop.ini
 
 # Logs
 *.log
+
+# Local project specification
+/Usage Meter — Chrome Extension Spec.md
