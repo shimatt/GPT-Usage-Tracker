@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Usage Meter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <header class="head">
+        <h1>Usage Meter</h1>
+        <p id="status" class="status">Loading…</p>
+      </header>
+
+      <div id="format-banner" class="banner" role="alert" hidden>Usage format changed — update the extension.</div>
+
+      <form id="form" novalidate>
+        <fieldset>
+          <legend>Show</legend>
+          <label class="row"><span>5-hour window</span><input type="checkbox" class="switch" name="showFiveHour" /></label>
+          <label class="row"><span>7-day window</span><input type="checkbox" class="switch" name="showWeekly" /></label>
+          <label class="row"><span>Pace marker on bars</span><input type="checkbox" class="switch" name="showPace" /></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Placement</legend>
+          <label class="row"><span>Compact (rings only)</span><input type="checkbox" class="switch" name="compact" /></label>
+          <div class="row static">
+            <span id="position-hint" class="hint">Drag the pill on chatgpt.com to move it.</span>
+            <button type="button" id="reset-position" class="btn" disabled>Reset position</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Display as</legend>
+          <div class="segmented" role="radiogroup" aria-label="Display as">
+            <label><input type="radio" name="display" value="used" /><span>Used</span></label>
+            <label><input type="radio" name="display" value="remaining" /><span>Remaining</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Alerts</legend>
+          <label class="row">
+            <span>Warn at</span>
+            <span class="num"><input type="number" name="warnAt" min="1" max="99" step="1" inputmode="numeric" />%</span>
+          </label>
+          <label class="row">
+            <span>Critical at</span>
+            <span class="num"><input type="number" name="criticalAt" min="1" max="100" step="1" inputmode="numeric" />%</span>
+          </label>
+          <p id="threshold-error" class="error" role="alert" hidden></p>
+          <label class="row"><span>Notify when a window resets</span><input type="checkbox" class="switch" name="notifyOnReset" /></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Refresh every</legend>
+          <div class="segmented" role="radiogroup" aria-label="Refresh every">
+            <label><input type="radio" name="refreshSeconds" value="30" /><span>30 s</span></label>
+            <label><input type="radio" name="refreshSeconds" value="60" /><span>1 min</span></label>
+            <label><input type="radio" name="refreshSeconds" value="300" /><span>5 min</span></label>
+          </div>
+        </fieldset>
+      </form>
+
+      <footer class="foot">All data stays in your browser.</footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Usage Meter",
+  "version": "0.1.0",
+  "description": "Shows your ChatGPT 5-hour and 7-day usage limits in the chat top bar.",
+  "minimum_chrome_version": "120",
+  "permissions": ["storage", "alarms"],
+  "optional_permissions": ["notifications"],
+  "host_permissions": ["https://chatgpt.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": { "service_worker": "sw.js" },
+  "action": {
+    "default_title": "Usage Meter options",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png" }
+  },
+  "options_ui": { "page": "popup.html", "open_in_tab": false },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+}

@@ -1,0 +1,22 @@
+# Dependencies and package manager cache
+node_modules/
+.npm/
+
+# Build output and TypeScript cache
+dist/
+.test-build/
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Tool caches
+.cache/
+.eslintcache
+.stylelintcache
+
+# Packaged extensions and private signing keys
+*.crx
+*.pem
+/usage-meter*.zip

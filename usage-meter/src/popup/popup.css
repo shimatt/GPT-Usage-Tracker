@@ -1,0 +1,249 @@
+:root {
+  --ok: #2f6feb;
+  --warn-text: #b4400a;
+  --critical: #9f1d1d;
+  --track: #ececef;
+  --bg: #ffffff;
+  --surface-2: #f4f4f5;
+  --border: #e4e4e7;
+  --text: #18181b;
+  --muted: #6b6b76;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ok: #6ea0ff;
+    --warn-text: #fdba74;
+    --critical: #f87171;
+    --track: #3d3d44;
+    --bg: #232326;
+    --surface-2: #2e2e33;
+    --border: #3f3f46;
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 13px/1.4 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+main {
+  padding: 16px;
+}
+
+.head h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.status {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.banner {
+  margin-top: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--warn-text);
+  font-size: 12.5px;
+}
+
+fieldset {
+  margin: 14px 0 0;
+  padding: 12px 0 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.row {
+  clear: both;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 32px;
+  cursor: pointer;
+}
+
+.row.static {
+  cursor: default;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.btn {
+  flex: none;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.btn:disabled {
+  color: var(--muted);
+  cursor: default;
+  opacity: 0.6;
+}
+
+.row:has(input:disabled) {
+  cursor: default;
+  opacity: 0.55;
+}
+
+/* Switch built on a native checkbox so keyboard and screen readers work unchanged. */
+.switch {
+  appearance: none;
+  position: relative;
+  flex: none;
+  width: 32px;
+  height: 18px;
+  margin: 0;
+  border-radius: 9px;
+  background: var(--track);
+  cursor: inherit;
+  transition: background-color 120ms ease;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 120ms ease;
+}
+
+.switch:checked {
+  background: var(--ok);
+}
+
+.switch:checked::after {
+  transform: translateX(14px);
+}
+
+input:focus-visible,
+.segmented label:has(input:focus-visible) {
+  outline: 2px solid var(--ok);
+  outline-offset: 2px;
+}
+
+.num {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+}
+
+.num input {
+  width: 56px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font: 500 13px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: right;
+}
+
+.num input[aria-invalid="true"] {
+  border-color: var(--critical);
+}
+
+.error {
+  margin: 2px 0 4px;
+  color: var(--critical);
+  font-size: 12px;
+}
+
+.segmented {
+  clear: both;
+  display: flex;
+  padding: 2px;
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+
+.segmented label {
+  flex: 1;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.segmented input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmented span {
+  display: block;
+  padding: 6px 0;
+  border-radius: 6px;
+  color: var(--muted);
+  text-align: center;
+  font-weight: 500;
+}
+
+.segmented input:checked + span {
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.foot {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 11.5px;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

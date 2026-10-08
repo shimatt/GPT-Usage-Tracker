@@ -1,0 +1,26 @@
+# Operating system files
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Local editor state and backup files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/shelf/
+*.swp
+*.swo
+*~
+
+# Local assistant settings
+**/.claude/settings.local.json
+
+# Local environment files (keep reusable templates)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Logs
+*.log

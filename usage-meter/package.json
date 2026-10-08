@@ -1,0 +1,19 @@
+{
+  "name": "usage-meter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome extension that shows ChatGPT 5-hour and 7-day usage limits in the chat top bar.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "test": "node build.mjs --test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.1.24",
+    "@types/node": "^22.18.8",
+    "esbuild": "^0.25.10",
+    "typescript": "^5.9.3"
+  }
+}
