@@ -8,12 +8,18 @@
     "build": "node build.mjs",
     "watch": "node build.mjs --watch",
     "test": "node build.mjs --test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "package": "node build.mjs --package"
   },
   "devDependencies": {
     "@types/chrome": "^0.1.24",
     "@types/node": "^22.18.8",
     "esbuild": "^0.25.10",
     "typescript": "^5.9.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shimatt/GPT-Usage-Tracker.git"
+  },
+  "homepage": "https://github.com/shimatt/GPT-Usage-Tracker"
 }

@@ -1,15 +1,20 @@
 // Builds the extension into dist/ (load it via chrome://extensions → Load unpacked).
-//   node build.mjs           one-off build
-//   node build.mjs --watch   rebuild on change
-//   node build.mjs --test    bundle tests/*.test.ts and run them with node --test
+//   node build.mjs             one-off build
+//   node build.mjs --watch     rebuild on change
+//   node build.mjs --test      bundle tests/*.test.ts and run them with node --test
+//   node build.mjs --package   build, then zip dist/ into release/usage-meter.zip for a GitHub Release
 import { spawnSync } from "node:child_process";
-import { copyFile, mkdir, readdir, rm, writeFile } from "node:fs/promises";
+import { copyFile, cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { deflateSync } from "node:zlib";
 import * as esbuild from "esbuild";
 
 const watch = process.argv.includes("--watch");
 const test = process.argv.includes("--test");
+const pack = process.argv.includes("--package");
 const DIST = "dist";
+const RELEASE = "release";
+const ZIP_FOLDER = "usage-meter"; // the folder people get when they unzip the download
+const { version } = JSON.parse(await readFile("package.json", "utf8"));
 
 const shared = {
   bundle: true,
@@ -133,8 +138,11 @@ function drawIcon(size) {
 
 async function copyStatic() {
   await mkdir(`${DIST}/icons`, { recursive: true });
+  // package.json is the one place the version is set.
+  const manifest = JSON.parse(await readFile("manifest.json", "utf8"));
+  manifest.version = version;
   await Promise.all([
-    copyFile("manifest.json", `${DIST}/manifest.json`),
+    writeFile(`${DIST}/manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`),
     copyFile("src/popup/popup.html", `${DIST}/popup.html`),
     copyFile("src/popup/popup.css", `${DIST}/popup.css`),
     ...[16, 32, 48, 128].map((size) => writeFile(`${DIST}/icons/${size}.png`, drawIcon(size))),
@@ -173,5 +181,18 @@ async function buildExtension() {
   }
 }
 
+/** Zips dist/ as usage-meter/… so unzipping gives one ready-to-load folder. */
+async function packageRelease() {
+  await rm(RELEASE, { recursive: true, force: true });
+  await cp(DIST, `${RELEASE}/${ZIP_FOLDER}`, { recursive: true });
+  const zip = spawnSync("zip", ["-r", "-q", "-X", "usage-meter.zip", ZIP_FOLDER, "-x", "*.DS_Store"], { cwd: RELEASE, stdio: "inherit" });
+  if (zip.status !== 0) throw new Error("zip failed — is the `zip` command installed?");
+  await rm(`${RELEASE}/${ZIP_FOLDER}`, { recursive: true });
+  console.log(`Packaged v${version} → ${RELEASE}/usage-meter.zip`);
+}
+
 if (test) await runTests();
-else await buildExtension();
+else {
+  await buildExtension();
+  if (pack && !watch) await packageRelease();
+}

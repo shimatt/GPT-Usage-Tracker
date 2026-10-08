@@ -27,3 +27,29 @@ Desktop.ini
 
 # Local project specification
 /Usage Meter — Chrome Extension Spec.md
+
+# Local assistant folders
+.claude/
+
+# Dependencies and package manager cache
+node_modules/
+.npm/
+
+# Build output, release zips and TypeScript cache
+dist/
+release/
+.test-build/
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Tool caches
+.cache/
+.eslintcache
+.stylelintcache
+
+# Packaged extensions and private signing keys
+*.crx
+*.pem
